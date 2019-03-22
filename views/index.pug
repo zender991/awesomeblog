@@ -2,5 +2,11 @@ extends layout
 
 block content
   img.image(src=image)
-  p Name -  #{name}
-  hr
+
+  each val, index in users
+    h4= val.firstName
+    h3= val.lastName
+    h3= val.id
+    a(href="users/edit-user-form?id="+val.id)
+      button(type="button") Edit user
+    hr

@@ -9,4 +9,4 @@ config.DB = {
   password: process.env.DB_PSWD,
 };
 
-module.exports = { config };
+module.exports = config;

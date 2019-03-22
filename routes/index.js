@@ -2,11 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 const userRoutes = require('./users');
+const { indexPage } = require('../index/index');
 
 router.use('/users', userRoutes);
 
-router.get('/', (req, res, next) => {
-  res.render('index', { name: 'Alex', image: 'https://www.w3schools.com/w3css/img_lights.jpg' });
-});
+router.get('/', indexPage);
 
 module.exports = router;

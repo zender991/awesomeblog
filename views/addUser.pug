@@ -3,6 +3,9 @@ extends layout
 block content
   form(action='/users/add-user', method='POST')
       p
-        | name: 
-        input(type='text', name='name', value='')
+        | First Name: 
+        input(type='text', name='firstName', value='')
+      p
+        | Last Name: 
+        input(type='text', name='lastName', value='')
       input(type='submit', value='Submit')
