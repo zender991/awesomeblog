@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  form(action='/users/add-user', method='POST')
+      p
+        | name: 
+        input(type='text', name='name', value='')
+      input(type='submit', value='Submit')

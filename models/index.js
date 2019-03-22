@@ -1,0 +1,41 @@
+const Sequelize = require('sequelize');
+const fs = require('fs');
+const path = require('path');
+
+const basename = path.basename(__filename);
+
+const config = require('../config/config').DB;
+
+const db = {};
+const sequelize = new Sequelize(
+  `${config.dialect}://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`,
+  { logging: false, operatorsAliases: false },
+);
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch((err) => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+fs
+  .readdirSync(__dirname)
+  .filter(file => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
+  .forEach((file) => {
+    const model = sequelize.import(path.join(__dirname, file));
+    db[model.name] = model;
+  });
+
+Object.keys(db).forEach((modelName) => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+module.exports = db;
