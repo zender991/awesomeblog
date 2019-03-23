@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 Edit User
+  form(action='/users/edit-user', method='POST')
+      input(type="hidden" name="id" value=user.id)
+      p
+        | First Name: 
+        input(type='text', name='firstName', value=user.firstName)
+      p
+        | Last Name: 
+        input(type='text', name='lastName', value=user.lastName)
+      input(type='submit', value='Submit')
