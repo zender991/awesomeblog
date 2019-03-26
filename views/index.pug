@@ -1,17 +1,22 @@
 extends layout
 
 block content
-  img.image(src=image)
   h2 Users List
   a(href="users/add-user-form")
     button(type="button") Add user
   hr
 
   each val, index in users
+    img.image(src=val.userAvatar)
     h4= val.firstName
     h3= val.lastName
     a(href="users/edit-user-form?id="+val.id)
       button(type="button") Edit user
     a(href="users/delete-user?id="+val.id)
       button(type="button") Delete user
+    if val.comments
+      p Comments
+      ul
+      each comment in val.comments
+        li= comment
     hr

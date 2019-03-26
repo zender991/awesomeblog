@@ -9,18 +9,28 @@ module.exports = (sequelize, DataTypes) => {
       },
       firstName: DataTypes.STRING,
       lastName: DataTypes.STRING,
+      userAvatar: DataTypes.STRING,
     },
     {
       timestamps: false,
     },
   );
 
-  User.createUser = async (firstName, lastName) => User.create({
+  User.associate = (models) => {
+    User.hasMany(models.comments, { as: 'Comments' });
+  };
+
+  User.createUser = async (firstName, lastName, userAvatar) => User.create({
     firstName,
     lastName,
+    userAvatar,
   });
 
-  User.getAllUsers = () => User.findAll();
+  User.getAllUsers = () => {
+    return User.findAll({
+      include: [{ model: sequelize.models.comments, as: 'Comments' }],
+    });
+  };
 
   User.getUserById = async userId => User.findOne({
     where: {
